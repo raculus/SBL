@@ -40,7 +40,7 @@ public class Station {
 
     public ArrayList<Station> getStation(String strJson) {
         ArrayList<Station> stationList = new ArrayList<>();
-        com.example.gson_test.Json json = new com.example.gson_test.Json();
+        Json json = new Json();
         JSONArray jsonArray = json.Parser(strJson);
         for (int index = 0; index < jsonArray.length(); index++) {
             try {

@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        com.example.gson_test.MyLocationListner myLocationListner = new com.example.gson_test.MyLocationListner();
+        MyLocationListner myLocationListner = new MyLocationListner();
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 100, myLocationListner);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         textView.setText("lat: " + lat + " lng: " + lng);
 
         Get get = new Get();
-        String url = new NearbyNode().getUrl(lat, lng);
+        String url = new NearbyStation().getUrl(lat, lng);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            NearbyNode nearbyNode = new NearbyNode();
-                            ArrayList<NearbyNode> nodeArrayList = nearbyNode.getNearbyNode(string_data);
-                            for (NearbyNode node:nodeArrayList) {
+                            NearbyStation nearbyStation = new NearbyStation();
+                            ArrayList<NearbyStation> nodeArrayList = nearbyStation.getNearbyStation(string_data);
+                            for (NearbyStation node:nodeArrayList) {
                                 String name = node.getNodeName();
                                 int code = node.getNodeNum();
                                 String result = name + " : " + code;
