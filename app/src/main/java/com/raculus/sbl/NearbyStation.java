@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class NearbyNode {
+public class NearbyStation {
     private int cityCode;
     private double gpsLati;
     private double gpsLong;
@@ -52,9 +52,8 @@ public class NearbyNode {
         Log.e("url", url);
         return url;
     }
-    public ArrayList<NearbyNode> getNearbyNode(String strJson){
-        //todo: set메서드 대신 변수에 할당
-        ArrayList<NearbyNode> nearbyNodeList = new ArrayList<>();
+    public ArrayList<NearbyStation> getNearbyStation(String strJson){
+        ArrayList<NearbyStation> nearbyStationList = new ArrayList<>();
         try {
             JSONObject response = new JSONObject(strJson);
             JSONObject body = new JSONObject(response.getString("response"));
@@ -72,20 +71,19 @@ public class NearbyNode {
                 String nodeName = jsonObject.getString("nodenm");
                 int nodeNum = jsonObject.getInt("nodeno");
 
-                NearbyNode nearbyNode = new NearbyNode();
-                nearbyNode.cityCode = cityCode;
-                nearbyNode.gpsLati = gpsLati;
-                nearbyNode.setGpsLati(gpsLati);
-                nearbyNode.setGpsLong(gpsLong);
-                nearbyNode.setNodeId(nodeId);
-                nearbyNode.setNodeName(nodeName);
-                nearbyNode.setNodeNum(nodeNum);
+                NearbyStation nearbyStation = new NearbyStation();
+                nearbyStation.cityCode = cityCode;
+                nearbyStation.gpsLati = gpsLati;
+                nearbyStation.gpsLong = gpsLong;
+                nearbyStation.nodeId = nodeId;
+                nearbyStation.nodeName = nodeName;
+                nearbyStation.nodeNum = nodeNum;
 
-                nearbyNodeList.add(nearbyNode);
+                nearbyStationList.add(nearbyStation);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return nearbyNodeList;
+        return nearbyStationList;
     }
 }
