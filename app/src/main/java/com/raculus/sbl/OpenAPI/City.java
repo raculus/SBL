@@ -1,4 +1,6 @@
-package com.raculus.sbl;
+package com.raculus.sbl.OpenAPI;
+
+import com.raculus.sbl.BuildConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;

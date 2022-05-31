@@ -1,12 +1,19 @@
-package com.raculus.sbl;
+package com.raculus.sbl.OpenAPI;
+
+import com.raculus.sbl.BuildConfig;
+import com.raculus.sbl.Json;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Station {
+/*
+* 버스 도착 예정시간
+* */
+public class Station implements Comparable<Station> {
     private int prevStationCnt;
     private int arriveSecond;
     private String routeId;
@@ -32,7 +39,7 @@ public class Station {
     private static String serviceKey = BuildConfig.openApiKey;
 
     public String getUrl(int cityCode, String nodeId){
-        String url = "https://apis.data.go.kr/1613000/ArvlInfoInqireService/getSttnAcctoArvlPrearngeInfoList?serviceKey=";
+        String url = "http://apis.data.go.kr/1613000/ArvlInfoInqireService/getSttnAcctoArvlPrearngeInfoList?serviceKey=";
         url += serviceKey;
         url += "&pageNo=1&numOfRows=9999&_type=json&cityCode=" + cityCode + "&nodeId=" + nodeId;
         return url;
@@ -58,6 +65,19 @@ public class Station {
                 e.printStackTrace();
             }
         }
+        Collections.sort(stationList);
         return stationList;
+    }
+
+    //버스 남은시간 적은순대로 정렬을 위한 메서드
+    @Override
+    public int compareTo(Station station){
+        if(this.arriveSecond < station.getArriveSecond()){
+            return -1;
+        }
+        else if(this.arriveSecond > station.getArriveSecond()){
+            return 1;
+        }
+        return 0;
     }
 }

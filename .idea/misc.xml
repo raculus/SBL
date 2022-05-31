@@ -4,6 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_arrivalBus_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_arrival_bus_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_arrive_bus.xml" value="0.45454545454545453" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_custom.xml" value="0.25" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_neaby.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_neaby_item.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_nearby.xml" value="0.20742753623188406" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_nearby_item.xml" value="0.24728260869565216" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_station.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/muhjh/AndroidStudioProjects/sbl/app/src/main/res/layout/listview_test.xml" value="0.29873417721518986" />
       </map>
     </option>
   </component>

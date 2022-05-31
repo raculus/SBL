@@ -1,6 +1,8 @@
-package com.raculus.sbl;
+package com.raculus.sbl.OpenAPI;
 
 import android.util.Log;
+
+import com.raculus.sbl.BuildConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,9 +18,26 @@ public class NearbyStation {
     private String nodeName;
     private int nodeNum;
 
-    public void setCityCode(int code){
-        this.cityCode = code;
+    // setter
+    public void setCityCode(int cityCode){
+        this.cityCode = cityCode;
     }
+    public void setGpsLati(double gpsLati){
+        this.gpsLati = gpsLati;
+    }
+    public void setGpsLong(double gpsLong){
+        this.gpsLong = gpsLong;
+    }
+    public void setNodeId(String nodeId){
+        this.nodeId = nodeId;
+    }
+    public void setNodeName(String nodeName){
+        this.nodeName = nodeName;
+    }
+    public void setNodeNum(int nodeNum){
+        this.nodeNum = nodeNum;
+    }
+    // getter
     public int getCityCode(){
         return this.cityCode;
     }
