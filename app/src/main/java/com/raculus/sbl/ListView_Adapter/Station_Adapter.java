@@ -45,8 +45,7 @@ public class Station_Adapter extends BaseAdapter {
         TextView busType = view.findViewById(R.id.busType);
 
         Station station = stationList.get(position);
-        int arrivSec = station.getArriveSecond();
-        int arrivMinutes = Math.round(arrivSec / 60);
+        int arrivMinutes = station.getArriveMinutes();
         int routeNum = station.getRouteNum();
         String routeType = station.getRouteType();
 

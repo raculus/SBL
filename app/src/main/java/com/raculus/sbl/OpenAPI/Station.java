@@ -7,15 +7,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /*
 * 버스 도착 예정시간
 * */
-public class Station implements Comparable<Station> {
+public class Station implements Comparable<Station>, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int prevStationCnt;
     private int arriveSecond;
+    private int arriveMinutes;
     private String routeId;
     private int routeNum;
     private String routeType;
@@ -34,6 +38,9 @@ public class Station implements Comparable<Station> {
     }
     public String getRouteType(){
         return routeType;
+    }
+    public int getArriveMinutes() {
+        return arriveMinutes;
     }
 
     private static String serviceKey = BuildConfig.openApiKey;
@@ -56,6 +63,7 @@ public class Station implements Comparable<Station> {
                 Station station = new Station();
                 station.prevStationCnt = jsonObject.getInt("arrprevstationcnt");    //도착까지 남은 정류장 수
                 station.arriveSecond = jsonObject.getInt("arrtime");                //도착까지 예상시간(초)
+                station.arriveMinutes = Math.round(station.arriveSecond / 60);             //도착까지 예상시간(분)
                 station.routeId = jsonObject.getString("routeid");               //노선 ID (ex: CWB123123)
                 station.routeNum = jsonObject.getInt("routeno");                    //노선 번호 (ex: 212)
                 station.routeType = jsonObject.getString("routetp");                //노선 유형 (ex: 간선버스)

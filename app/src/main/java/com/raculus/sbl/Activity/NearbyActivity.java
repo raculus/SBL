@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -23,18 +25,32 @@ import androidx.core.app.ActivityCompat;
 import com.raculus.sbl.Get;
 import com.raculus.sbl.OpenAPI.NearbyStation;
 import com.raculus.sbl.ListView_Adapter.NearbyStation_Adapter;
+import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class NearbyActivity extends AppCompatActivity {
+    ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK) {
+                    Intent intent = result.getData();
+                    Station station = (Station) intent.getSerializableExtra("bus");
+                    Log.e("Nearby", station.getRouteNum()+"");
+                }
+            }
+    );
+
+    public static NearbyActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_nearby);
+        setContentView(R.layout.listview);
 
+        activity = NearbyActivity.this;
         TextView textView = findViewById(R.id.textView);
         ProgressBar progressBar = findViewById(R.id.progressBar);
         ListView listView = findViewById(R.id.listView);
@@ -113,13 +129,7 @@ public class NearbyActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                                         NearbyStation nearby = myAdapter.getItem(position);
-
-                                        Intent intent = new Intent(getApplicationContext(), StationActivity.class);
-                                        intent.putExtra("stationName", nearby.getNodeName());
-                                        intent.putExtra("staionNum", nearby.getNodeNum());
-                                        intent.putExtra("stationId", nearby.getNodeId());
-                                        intent.putExtra("cityCode", nearby.getCityCode());
-                                        startActivity(intent);
+                                        selectBus(nearby);
                                     }
                                 });
                             }
@@ -134,5 +144,14 @@ public class NearbyActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+    private void selectBus(NearbyStation nearby){
+        Intent intent = new Intent(getApplicationContext(), StationActivity.class);
+        intent.putExtra("stationName", nearby.getNodeName());
+        intent.putExtra("stationNum", nearby.getNodeNum());
+        intent.putExtra("stationId", nearby.getNodeId());
+        intent.putExtra("cityCode", nearby.getCityCode());
+
+        mStartForResult.launch(intent);
     }
 }

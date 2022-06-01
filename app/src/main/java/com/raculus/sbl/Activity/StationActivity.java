@@ -1,5 +1,6 @@
 package com.raculus.sbl.Activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,26 +10,42 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.raculus.sbl.Get;
+import com.raculus.sbl.MainActivity;
 import com.raculus.sbl.R;
 import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.ListView_Adapter.Station_Adapter;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class StationActivity extends AppCompatActivity {
 
+    private void itemClick(Station station){
+        int resultCode = Activity.RESULT_OK;
+        //값 넘기기
+        Log.d("itemclick: ", station.getRouteNum()+"");
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("bus", (Serializable) station);
+        intent.putExtra("num", station.getRouteNum());
+
+        //액티비티 닫기
+        NearbyActivity nearbyActivity = NearbyActivity.activity;
+        nearbyActivity.setResult(resultCode);
+        this.finish();
+        nearbyActivity.finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview_nearby);
+        setContentView(R.layout.listview);
 
         TextView textView = findViewById(R.id.textView);
         ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -82,9 +99,8 @@ public class StationActivity extends AppCompatActivity {
                                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                                                Toast.makeText(getApplicationContext(),
-                                                        myAdapter.getItem(position).getRouteNum() + " " + myAdapter.getItem(position).getRouteType(),
-                                                        Toast.LENGTH_LONG).show();
+                                                Station s = myAdapter.getItem(position);
+                                                itemClick(s);
                                             }
                                         });
                                     }
