@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -37,8 +38,12 @@ public class NearbyActivity extends AppCompatActivity {
             result -> {
                 if(result.getResultCode() == Activity.RESULT_OK) {
                     Intent intent = result.getData();
-                    Station station = (Station) intent.getSerializableExtra("bus");
-                    Log.e("Nearby", station.getRouteNum()+"");
+                    Station station = (Station) intent.getSerializableExtra("Station");
+
+                    intent = new Intent();
+                    intent.putExtra("Station", station);
+                    setResult(result.getResultCode(), intent);
+                    finish();
                 }
             }
     );
@@ -88,17 +93,15 @@ public class NearbyActivity extends AppCompatActivity {
 
         Location location = locationManager.getLastKnownLocation(locationProvider);
         if(location == null){
-            Log.e("location", "null");
-            textView.setText("location is null");
+            String msg = getResources().getString(R.string.err_null_gps);
+            Log.e("location", msg);
+            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
             return;
         }
 
         double lat = location.getLatitude(); //위도
         double lng = location.getLongitude(); //경도
-        Log.e("lat, lng", lat +", "+ lng);
-
-        textView.setText("lat: " + lat + " lng: " + lng);
-
+        Log.d("GPS: ", "lat: "+lat +", lng: "+ lng);
         /*
          * openapi에서 json불러오기 
          */
@@ -114,6 +117,11 @@ public class NearbyActivity extends AppCompatActivity {
                         public void run() {
                             NearbyStation nearbyStation = new NearbyStation();
                             ArrayList<NearbyStation> nodeArrayList = nearbyStation.getNearbyStation(string_data);
+                            if(nodeArrayList == null){
+                                Toast.makeText(con, "공공데이터 서버 오류", Toast.LENGTH_LONG).show();
+                                finish();
+                                return;
+                            }
 
                             progressBar.setVisibility(View.INVISIBLE);
 
@@ -145,12 +153,9 @@ public class NearbyActivity extends AppCompatActivity {
             }
         }).start();
     }
-    private void selectBus(NearbyStation nearby){
-        Intent intent = new Intent(getApplicationContext(), StationActivity.class);
-        intent.putExtra("stationName", nearby.getNodeName());
-        intent.putExtra("stationNum", nearby.getNodeNum());
-        intent.putExtra("stationId", nearby.getNodeId());
-        intent.putExtra("cityCode", nearby.getCityCode());
+    private void selectBus(NearbyStation nearbyStation){
+        Intent intent = new Intent(NearbyActivity.this, StationActivity.class);
+        intent.putExtra("NearbyStation", nearbyStation);
 
         mStartForResult.launch(intent);
     }

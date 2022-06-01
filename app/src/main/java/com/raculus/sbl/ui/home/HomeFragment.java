@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -22,18 +23,33 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.raculus.sbl.Activity.NearbyActivity;
 import com.raculus.sbl.Activity.StationActivity;
+import com.raculus.sbl.ListView_Adapter.Bus_Adapter;
+import com.raculus.sbl.ListView_Adapter.Station_Adapter;
 import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.R;
 import com.raculus.sbl.databinding.FragmentHomeBinding;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment{
+    ListView listView;
+
+    ArrayList<Station> stationArrayList = new ArrayList<>();
+    private void addBus(Station station){
+        stationArrayList.add(station);
+        if(stationArrayList.size() > 0 ){
+            final Bus_Adapter bus_adapter = new Bus_Adapter(getContext(), stationArrayList);
+            Log.e("station name: ", station.getStationName()+"");
+            listView.setAdapter(bus_adapter);
+        }
+    }
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if(result.getResultCode() == Activity.RESULT_OK) {
-                    Intent intent = new Intent(this.getActivity().getIntent());
-                    int busNum = intent.getIntExtra("num", 0);
-                    Log.e("MainActivity", busNum+"");
+                    Intent intent = result.getData();
+                    Station station = (Station) intent.getSerializableExtra("Station");
+                    addBus(station);
                 }
             }
     );
@@ -50,6 +66,8 @@ public class HomeFragment extends Fragment{
 
         FloatingActionButton fabAdd = root.findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(view -> busAdd());
+
+        listView = root.findViewById(R.id.listView);
         return root;
     }
 

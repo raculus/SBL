@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false">
@@ -19,12 +20,28 @@
             android:text="100"
             android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/routeType"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Route type" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stationName"
+                android:layout_width="207dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="stationName"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/routeType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="routeType" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

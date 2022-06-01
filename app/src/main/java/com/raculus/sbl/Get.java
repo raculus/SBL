@@ -1,5 +1,7 @@
 package com.raculus.sbl;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +15,13 @@ public class Get {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
+
+        int responseCode = conn.getResponseCode();
+        if(responseCode != 200){
+            Log.e("http","Response code: " + responseCode);
+            conn.disconnect();
+            return null;
+        }
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));

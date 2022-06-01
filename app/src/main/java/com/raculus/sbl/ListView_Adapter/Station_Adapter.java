@@ -41,12 +41,12 @@ public class Station_Adapter extends BaseAdapter {
         View view = mLayoutInFlater.inflate(R.layout.listview_arrival_bus_item, null);
 
         TextView busNum = view.findViewById(R.id.busNum);
-        TextView arrivalTime = view.findViewById(R.id.arrivalTime);
-        TextView busType = view.findViewById(R.id.busType);
+        TextView arrivalTime = view.findViewById(R.id.arrivalMinutes);
+        TextView busType = view.findViewById(R.id.routeType);
 
         Station station = stationList.get(position);
         int arrivMinutes = station.getArriveMinutes();
-        int routeNum = station.getRouteNum();
+        String routeNum = station.getRouteNum();
         String routeType = station.getRouteType();
 
         busNum.setText(routeNum+"");

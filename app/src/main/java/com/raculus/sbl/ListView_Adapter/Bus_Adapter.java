@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.raculus.sbl.Gps;
-import com.raculus.sbl.OpenAPI.NearbyStation;
+import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.R;
 
 import java.util.ArrayList;
@@ -16,21 +15,21 @@ import java.util.ArrayList;
 public class Bus_Adapter extends BaseAdapter {
     Context mContext = null;
     LayoutInflater mLayoutInFlater = null;
-    ArrayList<NearbyStation> busList;
+    ArrayList<Station> stationList;
 
-    public Bus_Adapter(Context context, ArrayList<NearbyStation> data){
+    public Bus_Adapter(Context context, ArrayList<Station> data){
         mContext = context;
-        busList = data;
+        stationList = data;
         mLayoutInFlater = LayoutInflater.from(context);
     }
     @Override
     public int getCount(){
-        return busList.size();
+        return stationList.size();
     }
 
     @Override
-    public NearbyStation getItem(int positstion) {
-        return busList.get(positstion);
+    public Station getItem(int positstion) {
+        return stationList.get(positstion);
     }
 
     @Override
@@ -39,24 +38,27 @@ public class Bus_Adapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View converView, ViewGroup parent){
-        View view = mLayoutInFlater.inflate(R.layout.listview_nearby_item, null);
+        View view = mLayoutInFlater.inflate(R.layout.listview_bus_item, null);
 
-        TextView title = view.findViewById(R.id.station_title);
-        TextView number = view.findViewById(R.id.station_number);
-        TextView distance = view.findViewById(R.id.station_distance);
+        TextView busNum = view.findViewById(R.id.busNum);
+        TextView arrivalTime = view.findViewById(R.id.arrivalMinutes);
+        TextView busType = view.findViewById(R.id.routeType);
+        TextView stationName = view.findViewById(R.id.stationName);
 
-        NearbyStation station = busList.get(position);
-        String name = station.getNodeName();
-        String num = ""+station.getNodeNum();
-        double lat = station.getGpsLati();
-        double lng = station.getGpsLong();
-        Gps gps = new Gps();
-        double dist = gps.Distance(35.25557359, 128.6409908, lat, lng);
-        dist = Math.round(dist);
+        Station station = stationList.get(position);
+        int arrivMinutes = station.getArriveMinutes();
+        String routeNum = station.getRouteNum();
+        String routeType = station.getRouteType();
+        String name = station.getStationName();
 
-        title.setText(name);
-        number.setText(num);
-        distance.setText(dist +"m");
+        busNum.setText(routeNum+"");
+        busType.setText(routeType);
+        arrivalTime.setText(arrivMinutes+"분");
+
+        if(name != null){
+            stationName.setText(name);
+            stationName.setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

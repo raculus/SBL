@@ -1,16 +1,19 @@
 package com.raculus.sbl.OpenAPI;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.raculus.sbl.BuildConfig;
+import com.raculus.sbl.Json;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NearbyStation {
+public class NearbyStation implements Serializable {
     private int cityCode;
     private double gpsLati;
     private double gpsLong;
@@ -68,19 +71,22 @@ public class NearbyStation {
         String url = "http://apis.data.go.kr/1613000/BusSttnInfoInqireService/getCrdntPrxmtSttnList?serviceKey=";
         url += serviceKey;
         url += "&pageNo=1&numOfRows=9999&_type=json&gpsLati="+ latitude +"&gpsLong=" + longitude;
-        Log.e("url", url);
+        Log.d("NearbyStation URL", url);
         return url;
     }
     public ArrayList<NearbyStation> getNearbyStation(String strJson){
         ArrayList<NearbyStation> nearbyStationList = new ArrayList<>();
+        if(strJson == null){
+            Log.e("null", "strJson is null");
+            return null;
+        }
         try {
-            JSONObject response = new JSONObject(strJson);
-            JSONObject body = new JSONObject(response.getString("response"));
-            JSONObject items = new JSONObject(body.getString("body"));
-            JSONObject item = new JSONObject(items.getString("items"));
-            JSONArray jsonArray = item.getJSONArray("item");
-
-            for(int index = 0; index < jsonArray.length(); index++){
+            Json json = new Json();
+            JSONArray jsonArray = json.Parser(strJson);
+            if(jsonArray == null){
+                return null;
+            }
+            for(int index = 0; index < jsonArray.length(); index++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(index);
 
                 int cityCode = jsonObject.getInt("citycode");
@@ -102,6 +108,7 @@ public class NearbyStation {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
         return nearbyStationList;
     }

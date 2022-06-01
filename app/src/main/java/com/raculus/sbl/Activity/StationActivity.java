@@ -4,23 +4,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.raculus.sbl.Get;
-import com.raculus.sbl.MainActivity;
+import com.raculus.sbl.OpenAPI.NearbyStation;
 import com.raculus.sbl.R;
 import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.ListView_Adapter.Station_Adapter;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,16 +29,12 @@ public class StationActivity extends AppCompatActivity {
     private void itemClick(Station station){
         int resultCode = Activity.RESULT_OK;
         //값 넘기기
-        Log.d("itemclick: ", station.getRouteNum()+"");
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("bus", (Serializable) station);
-        intent.putExtra("num", station.getRouteNum());
+        Intent intent = new Intent();
+        intent.putExtra("Station", station);
 
         //액티비티 닫기
-        NearbyActivity nearbyActivity = NearbyActivity.activity;
-        nearbyActivity.setResult(resultCode);
-        this.finish();
-        nearbyActivity.finish();
+        setResult(resultCode, intent);
+        finish();
     }
 
     @Override
@@ -52,13 +47,15 @@ public class StationActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
         Context context = this;
 
+        //NearbyActivity intent에서 값 가져오기
         Intent intent = getIntent();
-        String stationName = intent.getStringExtra("stationName");
-        String stationId = intent.getStringExtra("stationId");
-        int cityCode = intent.getIntExtra("cityCode", 0);
-        int stationNum = intent.getIntExtra("stationNum", 0);
+        NearbyStation nearbyStation = (NearbyStation) intent.getSerializableExtra("NearbyStation");
+        String stationName = nearbyStation.getNodeName();
+        String stationId = nearbyStation.getNodeId();
+        int cityCode = nearbyStation.getCityCode();
+        int stationNum = nearbyStation.getNodeNum();
 
-        String title = String.format("정류장: %s (%d)", stationName, stationNum);
+        String title = String.format("%s", stationName);
         textView.setVisibility(View.VISIBLE);
         textView.setText(title);
 
@@ -105,7 +102,9 @@ public class StationActivity extends AppCompatActivity {
                                         });
                                     }
                                     else{
-                                        Log.e("정류장 없음", "");
+                                        String msg = getResources().getString(R.string.err_no_bus);
+                                        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                                        finish();
                                     }
                                 }
                             });

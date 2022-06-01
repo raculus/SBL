@@ -1,5 +1,7 @@
 package com.raculus.sbl.OpenAPI;
 
+import android.util.Log;
+
 import com.raculus.sbl.BuildConfig;
 import com.raculus.sbl.Json;
 
@@ -15,14 +17,17 @@ import java.util.Collections;
 * 버스 도착 예정시간
 * */
 public class Station implements Comparable<Station>, Serializable {
-    private static final long serialVersionUID = 1L;
-
+    private String stationName;
     private int prevStationCnt;
     private int arriveSecond;
     private int arriveMinutes;
     private String routeId;
-    private int routeNum;
+    private String routeNum;
     private String routeType;
+
+    public String getStationName(){
+        return stationName;
+    }
 
     public int getPrevStationCnt() {
         return prevStationCnt;
@@ -33,7 +38,7 @@ public class Station implements Comparable<Station>, Serializable {
     public String getRouteId(){
         return routeId;
     }
-    public int getRouteNum(){
+    public String getRouteNum(){
         return routeNum;
     }
     public String getRouteType(){
@@ -49,6 +54,7 @@ public class Station implements Comparable<Station>, Serializable {
         String url = "http://apis.data.go.kr/1613000/ArvlInfoInqireService/getSttnAcctoArvlPrearngeInfoList?serviceKey=";
         url += serviceKey;
         url += "&pageNo=1&numOfRows=9999&_type=json&cityCode=" + cityCode + "&nodeId=" + nodeId;
+        Log.d("Station URL", url);
         return url;
     }
 
@@ -56,6 +62,9 @@ public class Station implements Comparable<Station>, Serializable {
         ArrayList<Station> stationList = new ArrayList<>();
         Json json = new Json();
         JSONArray jsonArray = json.Parser(strJson);
+        if(jsonArray == null){
+            return stationList;
+        }
         for (int index = 0; index < jsonArray.length(); index++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(index);
@@ -65,8 +74,9 @@ public class Station implements Comparable<Station>, Serializable {
                 station.arriveSecond = jsonObject.getInt("arrtime");                //도착까지 예상시간(초)
                 station.arriveMinutes = Math.round(station.arriveSecond / 60);             //도착까지 예상시간(분)
                 station.routeId = jsonObject.getString("routeid");               //노선 ID (ex: CWB123123)
-                station.routeNum = jsonObject.getInt("routeno");                    //노선 번호 (ex: 212)
+                station.routeNum = jsonObject.getString("routeno")+"";                    //노선 번호 (ex: 212)
                 station.routeType = jsonObject.getString("routetp");                //노선 유형 (ex: 간선버스)
+                station.stationName = jsonObject.getString("nodenm");
 
                 stationList.add(station);
             } catch (JSONException e) {
