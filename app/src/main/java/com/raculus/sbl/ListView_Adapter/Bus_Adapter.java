@@ -51,7 +51,7 @@ public class Bus_Adapter extends BaseAdapter {
         String routeType = station.getRouteType();
         String name = station.getStationName();
 
-        busNum.setText(routeNum+"");
+        busNum.setText(routeNum);
         busType.setText(routeType);
         arrivalTime.setText(arrivMinutes+"분");
 
