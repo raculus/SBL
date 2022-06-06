@@ -102,7 +102,7 @@ public class StationActivity extends AppCompatActivity {
                                         });
                                     }
                                     else{
-                                        String msg = getResources().getString(R.string.err_no_bus);
+                                        String msg = getResources().getString(R.string.err_no_bus_stop);
                                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
                                         finish();
                                     }

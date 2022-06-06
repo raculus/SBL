@@ -18,10 +18,14 @@ public class NearbyStation_Adapter extends BaseAdapter {
     LayoutInflater mLayoutInFlater = null;
     ArrayList<NearbyStation> stationList;
 
-    public NearbyStation_Adapter(Context context, ArrayList<NearbyStation> data){
+    double gpsLat, gpsLng;
+
+    public NearbyStation_Adapter(Context context, ArrayList<NearbyStation> data, double lat, double lng){
         mContext = context;
         stationList = data;
         mLayoutInFlater = LayoutInflater.from(context);
+        gpsLat = lat;
+        gpsLng = lng;
     }
     @Override
     public int getCount(){
@@ -51,8 +55,7 @@ public class NearbyStation_Adapter extends BaseAdapter {
         double lat = station.getGpsLati();
         double lng = station.getGpsLong();
         Gps gps = new Gps();
-        double dist = gps.Distance(35.25557359, 128.6409908, lat, lng);
-        dist = Math.round(dist);
+        int dist = (int) gps.Distance(gpsLat, gpsLng, lat, lng);
 
         title.setText(name);
         number.setText(num);

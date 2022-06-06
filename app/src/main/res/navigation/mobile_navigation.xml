@@ -9,17 +9,17 @@
         android:id="@+id/navigation_home"
         android:name="com.raculus.sbl.ui.home.HomeFragment"
         android:label="@string/title_alarm"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_alarm" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.raculus.sbl.ui.dashboard.DashboardFragment"
         android:label="@string/title_edit"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_edit" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.raculus.sbl.ui.notifications.NotificationsFragment"
         android:label="@string/title_setting"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_setting" />
 </navigation>

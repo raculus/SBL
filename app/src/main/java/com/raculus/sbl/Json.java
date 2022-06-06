@@ -23,7 +23,14 @@ public class Json {
                 return null;
             }
             JSONObject items = new JSONObject(body.getString("items"));
-            JSONArray jsonArray = items.getJSONArray("item");
+
+            JSONArray jsonArray = new JSONArray();
+            if(body.getInt("totalCount") == 1){
+                jsonArray.put(items.getJSONObject("item"));
+            }
+            else{
+                jsonArray = items.getJSONArray("item");
+            }
 
             return jsonArray;
         } catch (JSONException e) {
