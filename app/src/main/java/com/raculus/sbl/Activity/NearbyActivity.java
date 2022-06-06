@@ -74,10 +74,13 @@ public class NearbyActivity extends AppCompatActivity {
             };
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
                 Context context = this;
+                String title = getResources().getString(R.string.diag_grant_gps_title);
+                String msg = getResources().getString(R.string.diag_grant_gps_msg);
+                String ok = getResources().getString(R.string.ok);
                 new AlertDialog.Builder(this)
-                        .setTitle("위치 권한이 왜 필요하나요?")
-                        .setMessage("주변 정류장 검색을 위해 필요합니다.")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                        .setTitle(title)
+                        .setMessage(msg)
+                        .setPositiveButton(ok, new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int which){
                                 ActivityCompat.requestPermissions((Activity) context, PERMISSIONS, PERMISSIONS_REQUEST_READ_LOCATION);
                             }
@@ -118,7 +121,8 @@ public class NearbyActivity extends AppCompatActivity {
                             NearbyStation nearbyStation = new NearbyStation();
                             ArrayList<NearbyStation> nodeArrayList = nearbyStation.getNearbyStation(string_data);
                             if(nodeArrayList == null){
-                                Toast.makeText(con, "공공데이터 서버 오류", Toast.LENGTH_LONG).show();
+                                String msg = getResources().getString(R.string.err_api_server);
+                                Toast.makeText(con, msg, Toast.LENGTH_LONG).show();
                                 finish();
                                 return;
                             }
@@ -129,7 +133,7 @@ public class NearbyActivity extends AppCompatActivity {
                             * listview에 값 넣기
                             * */
                             if(nodeArrayList.size() > 0){
-                                final NearbyStation_Adapter myAdapter = new NearbyStation_Adapter(con, nodeArrayList);
+                                final NearbyStation_Adapter myAdapter = new NearbyStation_Adapter(con, nodeArrayList, lat, lng);
 
                                 listView.setAdapter(myAdapter);
 
@@ -142,7 +146,8 @@ public class NearbyActivity extends AppCompatActivity {
                                 });
                             }
                             else{
-                                textView.setText("근처에 정류장이 없습니다.");
+                                String msg = getResources().getString(R.string.err_no_bus_stop);
+                                textView.setText(msg);
                                 textView.setVisibility(View.VISIBLE);
                             }
                         }

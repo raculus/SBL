@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">SBL</string>
-    <string name="title_alarm">알람</string>
-    <string name="title_edit">편집</string>
-    <string name="title_setting">설정</string>
-    <string name="add">추가</string>
-    <string name="err_null_gps">위치정보를 불러오는데 실패하였습니다</string>
-    <string name="err_no_bus">불러올 버스가 없습니다</string>
+    <string name="app_name" translatable="false">SBL</string>
+    <string name="title_alarm">Alarm</string>
+    <string name="title_edit">Edit</string>
+    <string name="title_setting">Setting</string>
+    <string name="set_alarm">Set alarm</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="err_null_gps">Failed to retrieve location information.</string>
+    <string name="err_no_bus_stop">There is no bus stop nearby.</string>
+    <string name="err_no_bus_nearby">There is no bus nearby.</string>
+    <string name="err_api_server">API Server Error</string>
+    <string name="diag_grant_gps_title">Why need location permissions?</string>
+    <string name="diag_grant_gps_msg">Required for searching for nearby bus stops.</string>
+    <string name="ok">Ok</string>
+    <string name="minutes">Min</string>
 </resources>

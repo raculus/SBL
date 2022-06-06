@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SBL">
         <activity
-            android:name=".MainActivity"
+            android:name=".Loading"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".Activity.NearbyActivity"></activity>
         <activity android:name=".Activity.StationActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

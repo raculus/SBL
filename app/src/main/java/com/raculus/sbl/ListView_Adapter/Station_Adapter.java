@@ -51,7 +51,8 @@ public class Station_Adapter extends BaseAdapter {
 
         busNum.setText(routeNum+"");
         busType.setText(routeType);
-        arrivalTime.setText(arrivMinutes+"분");
+        String min = view.getResources().getString(R.string.minutes);
+        arrivalTime.setText(arrivMinutes+min);
 
         return view;
     }

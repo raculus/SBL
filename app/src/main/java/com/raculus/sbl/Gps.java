@@ -21,8 +21,8 @@ public class Gps{
         double height = 0;
 
         distance = Math.pow(distance, 2) + Math.pow(height, 2);
-
-        return Math.sqrt(distance);
+        distance = Math.sqrt(distance);
+        return (int) Math.round(distance);
     }
 }
 

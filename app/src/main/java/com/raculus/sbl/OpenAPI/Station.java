@@ -74,7 +74,7 @@ public class Station implements Comparable<Station>, Serializable {
                 station.arriveSecond = jsonObject.getInt("arrtime");                //도착까지 예상시간(초)
                 station.arriveMinutes = Math.round(station.arriveSecond / 60);             //도착까지 예상시간(분)
                 station.routeId = jsonObject.getString("routeid");               //노선 ID (ex: CWB123123)
-                station.routeNum = jsonObject.getString("routeno")+"";                    //노선 번호 (ex: 212)
+                station.routeNum = jsonObject.getInt("routeno")+"";                    //노선 번호 (ex: 212)
                 station.routeType = jsonObject.getString("routetp");                //노선 유형 (ex: 간선버스)
                 station.stationName = jsonObject.getString("nodenm");
 

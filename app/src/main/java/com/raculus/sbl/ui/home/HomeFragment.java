@@ -1,6 +1,9 @@
 package com.raculus.sbl.ui.home;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,6 +37,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment{
     ListView listView;
+    Context context = this.getContext();
 
     ArrayList<Station> stationArrayList = new ArrayList<>();
     private void addBus(Station station){
@@ -41,6 +46,31 @@ public class HomeFragment extends Fragment{
             final Bus_Adapter bus_adapter = new Bus_Adapter(getContext(), stationArrayList);
             Log.e("station name: ", station.getStationName()+"");
             listView.setAdapter(bus_adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Station s = bus_adapter.getItem(position);
+
+                    //Dialog
+                    AlertDialog.Builder dlg = new AlertDialog.Builder(context);
+                    dlg.setTitle(s.getRouteNum()+""); //제목
+                    String setAlarm = getResources().getString(R.string.set_alarm);
+                    String remove = getResources().getString(R.string.remove);
+                    final String[] itemArr = new String[] {setAlarm, remove};
+                    //dialog에서 선택
+                    dlg.setItems(itemArr, (dialog, index) -> {
+                        if(index == 0){
+
+                        }
+                        else if(index == 1){
+                            //listView에서 item제거
+                            stationArrayList.remove(position);
+                            listView.clearChoices();
+                            bus_adapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
         }
     }
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(

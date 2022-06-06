@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_alarm">알람</string>
+    <string name="title_edit">편집</string>
+    <string name="title_setting">설정</string>
+    <string name="add">추가</string>
+    <string name="remove">제거</string>
+    <string name="err_null_gps">위치정보를 불러오는데 실패하였습니다</string>
+    <string name="err_no_bus_stop">불러올 버스가 없습니다</string>
+    <string name="set_alarm">알람 설정</string>
+    <string name="err_no_bus_nearby">근처에 정류장이 없습니다</string>
+    <string name="err_api_server">API 서버 에러</string>
+    <string name="diag_grant_gps_title">위치 권한이 왜 필요하나요?</string>
+    <string name="diag_grant_gps_msg">주변 정류장 검색을 위해 필요합니다.</string>
+    <string name="ok">확인</string>
+    <string name="minutes">분</string>
+</resources>
