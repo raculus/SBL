@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 public class Json {
     public JSONArray Parser(String strJson){
+        JSONArray jsonArray = new JSONArray();
         try {
             JSONObject object = new JSONObject(strJson);
             JSONObject response = new JSONObject(object.getString("response"));
@@ -19,14 +20,16 @@ public class Json {
             }
             JSONObject body = new JSONObject(response.getString("body"));
             if(body.getInt("totalCount") <= 0){
-                Log.e("null", "json count is 0");
-                return null;
+                Log.e("JSON", "json count is 0");
+                return jsonArray;
             }
             JSONObject items = new JSONObject(body.getString("items"));
 
-            JSONArray jsonArray = new JSONArray();
             if(body.getInt("totalCount") == 1){
                 jsonArray.put(items.getJSONObject("item"));
+            }
+            else if(body.getInt("totalCount") == 0){
+                return jsonArray;
             }
             else{
                 jsonArray = items.getJSONArray("item");

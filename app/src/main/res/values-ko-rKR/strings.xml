@@ -14,4 +14,6 @@
     <string name="diag_grant_gps_msg">주변 정류장 검색을 위해 필요합니다.</string>
     <string name="ok">확인</string>
     <string name="minutes">분</string>
+    <string name="set">설정</string>
+    <string name="second">초</string>
 </resources>

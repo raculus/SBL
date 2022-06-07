@@ -7,11 +7,13 @@
     <string name="add">Add</string>
     <string name="remove">Remove</string>
     <string name="err_null_gps">Failed to retrieve location information.</string>
-    <string name="err_no_bus_stop">There is no bus stop nearby.</string>
-    <string name="err_no_bus_nearby">There is no bus nearby.</string>
+    <string name="err_no_bus_stop">There is no bus</string>
+    <string name="err_no_bus_nearby">There is no bus stop nearby</string>
     <string name="err_api_server">API Server Error</string>
     <string name="diag_grant_gps_title">Why need location permissions?</string>
     <string name="diag_grant_gps_msg">Required for searching for nearby bus stops.</string>
     <string name="ok">Ok</string>
     <string name="minutes">Min</string>
+    <string name="set">Set</string>
+    <string name="second">Sec</string>
 </resources>

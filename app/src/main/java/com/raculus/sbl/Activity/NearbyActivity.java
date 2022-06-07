@@ -126,6 +126,12 @@ public class NearbyActivity extends AppCompatActivity {
                                 finish();
                                 return;
                             }
+                            else if(nodeArrayList.size() == 0){
+                                String msg = getResources().getString(R.string.err_no_bus_nearby);
+                                Toast.makeText(con, msg, Toast.LENGTH_LONG).show();
+                                finish();
+                                return;
+                            }
 
                             progressBar.setVisibility(View.INVISIBLE);
 

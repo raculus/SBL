@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class StationActivity extends AppCompatActivity {
+    TimerTask timerTask;
 
     private void itemClick(Station station){
         int resultCode = Activity.RESULT_OK;
@@ -34,6 +36,7 @@ public class StationActivity extends AppCompatActivity {
 
         //액티비티 닫기
         setResult(resultCode, intent);
+        timerTask.cancel();
         finish();
     }
 
@@ -66,8 +69,7 @@ public class StationActivity extends AppCompatActivity {
         Timer timer = new Timer();
 
 
-        TimerTask TT = new TimerTask() {
-            int i = 0;
+        timerTask = new TimerTask() {
             @Override
             public void run() {
                 Get get = new Get();
@@ -97,6 +99,8 @@ public class StationActivity extends AppCompatActivity {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                                                 Station s = myAdapter.getItem(position);
+                                                s.setNodeId(nearbyStation.getNodeId());
+                                                s.setCityCode(cityCode);
                                                 itemClick(s);
                                             }
                                         });
@@ -104,6 +108,7 @@ public class StationActivity extends AppCompatActivity {
                                     else{
                                         String msg = getResources().getString(R.string.err_no_bus_stop);
                                         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                                        timerTask.cancel();
                                         finish();
                                     }
                                 }
@@ -116,6 +121,6 @@ public class StationActivity extends AppCompatActivity {
             }
 
         };
-        timer.schedule(TT, 0, 1*60000); //Timer 1분마다 실행
+        timer.schedule(timerTask, 0, 1*60000); //Timer 1분마다 실행
     }
 }

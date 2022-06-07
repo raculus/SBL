@@ -17,18 +17,32 @@ import java.util.Collections;
 * 버스 도착 예정시간
 * */
 public class Station implements Comparable<Station>, Serializable {
-    private String stationName;
-    private int prevStationCnt;
-    private int arriveSecond;
-    private int arriveMinutes;
-    private String routeId;
-    private String routeNum;
-    private String routeType;
+    protected String stationName;
+    protected int prevStationCnt;
+    protected int arriveSecond;
+    protected String routeId;
+    protected String routeNum;
+    protected String routeType;
 
+    public void setCityCode(int cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    protected int cityCode;
+    protected String nodeId;
+    public String getNodeId() {
+        return nodeId;
+    }
+
+    public void setNodeId(String nodeId) {
+        this.nodeId = nodeId;
+    }
+
+
+    public int getCityCode(){ return cityCode; }
     public String getStationName(){
         return stationName;
     }
-
     public int getPrevStationCnt() {
         return prevStationCnt;
     }
@@ -45,7 +59,7 @@ public class Station implements Comparable<Station>, Serializable {
         return routeType;
     }
     public int getArriveMinutes() {
-        return arriveMinutes;
+        return Math.round(arriveSecond / 60);
     }
 
     private static String serviceKey = BuildConfig.openApiKey;
@@ -72,9 +86,8 @@ public class Station implements Comparable<Station>, Serializable {
                 Station station = new Station();
                 station.prevStationCnt = jsonObject.getInt("arrprevstationcnt");    //도착까지 남은 정류장 수
                 station.arriveSecond = jsonObject.getInt("arrtime");                //도착까지 예상시간(초)
-                station.arriveMinutes = Math.round(station.arriveSecond / 60);             //도착까지 예상시간(분)
                 station.routeId = jsonObject.getString("routeid");               //노선 ID (ex: CWB123123)
-                station.routeNum = jsonObject.getInt("routeno")+"";                    //노선 번호 (ex: 212)
+                station.routeNum = jsonObject.get("routeno")+"";                 //노선 번호 (ex: 212)
                 station.routeType = jsonObject.getString("routetp");                //노선 유형 (ex: 간선버스)
                 station.stationName = jsonObject.getString("nodenm");
 
