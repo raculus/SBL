@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
@@ -15,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.raculus.sbl.databinding.ActivityMainBinding;
+import com.raculus.sbl.ui.home.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,5 +43,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
+    @Override
+    public void onBackPressed() {
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.test("test val");
 
+        finish();
+        return;
+    }
 }

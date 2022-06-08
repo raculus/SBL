@@ -22,9 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.SetAlarm_Activity"></activity>
         <activity android:name=".Activity.NearbyActivity"></activity>
         <activity android:name=".Activity.StationActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

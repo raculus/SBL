@@ -16,4 +16,8 @@
     <string name="minutes">분</string>
     <string name="set">설정</string>
     <string name="second">초</string>
+    <string name="cancel">취소</string>
+    <string name="alarm_title">알람 제목</string>
+    <string name="alarm_description">알람 설명</string>
+    <string name="save">저장</string>
 </resources>

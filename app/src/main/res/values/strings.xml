@@ -16,4 +16,8 @@
     <string name="minutes">Min</string>
     <string name="set">Set</string>
     <string name="second">Sec</string>
+    <string name="cancel">Cancel</string>
+    <string name="alarm_title">alarm title</string>
+    <string name="alarm_description">alarm description</string>
+    <string name="save">Save</string>
 </resources>

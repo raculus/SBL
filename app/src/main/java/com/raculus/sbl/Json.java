@@ -19,20 +19,17 @@ public class Json {
                 return null;
             }
             JSONObject body = new JSONObject(response.getString("body"));
-            if(body.getInt("totalCount") <= 0){
-                Log.e("JSON", "json count is 0");
-                return jsonArray;
-            }
             JSONObject items = new JSONObject(body.getString("items"));
-
-            if(body.getInt("totalCount") == 1){
+            try{
+                jsonArray = items.getJSONArray("item");
+            }
+            catch (Exception e){
                 jsonArray.put(items.getJSONObject("item"));
             }
-            else if(body.getInt("totalCount") == 0){
+
+            if(jsonArray.length() < 0)
+            {
                 return jsonArray;
-            }
-            else{
-                jsonArray = items.getJSONArray("item");
             }
 
             return jsonArray;

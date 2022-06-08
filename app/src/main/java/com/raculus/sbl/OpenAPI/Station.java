@@ -17,28 +17,38 @@ import java.util.Collections;
 * 버스 도착 예정시간
 * */
 public class Station implements Comparable<Station>, Serializable {
+    //TODO: change it
+    public String stationName;
+    public int prevStationCnt;
+    public int arriveSecond;
+    public String routeId;
+    public String routeNum;
+    public String routeType;
+    public int cityCode;
+    public String nodeId;
+    /*
     protected String stationName;
     protected int prevStationCnt;
     protected int arriveSecond;
     protected String routeId;
     protected String routeNum;
     protected String routeType;
-
-    public void setCityCode(int cityCode) {
-        this.cityCode = cityCode;
-    }
-
     protected int cityCode;
     protected String nodeId;
+     */
+
     public String getNodeId() {
         return nodeId;
     }
-
+    public void setCityCode(int cityCode) {
+        this.cityCode = cityCode;
+    }
+    public void setArriveSecond(int arriveSecond) {
+        this.arriveSecond = arriveSecond;
+    }
     public void setNodeId(String nodeId) {
         this.nodeId = nodeId;
     }
-
-
     public int getCityCode(){ return cityCode; }
     public String getStationName(){
         return stationName;
@@ -98,6 +108,42 @@ public class Station implements Comparable<Station>, Serializable {
         }
         Collections.sort(stationList);
         return stationList;
+    }
+    /*
+    * ArrayList<Station>을 json으로 바꾸고 String으로 반환
+    * */
+    public String listToJson(ArrayList<Station> stationArrayList){
+        try {
+            JSONObject root = new JSONObject();
+            JSONObject response = new JSONObject();
+            JSONObject resultCode = new JSONObject();
+            JSONObject items = new JSONObject();
+            JSONObject item = new JSONObject();
+
+            JSONArray jsonArray = new JSONArray();
+            for(Station s : stationArrayList){
+                JSONObject object = new JSONObject();
+                object.put("arrprevstationcnt", s.getPrevStationCnt());
+                object.put("arrtime", s.arriveSecond);
+                object.put("routeid", s.routeId);
+                object.put("routeno", s.routeNum);
+                object.put("routetp", s.routeType);
+                object.put("nodenm", s.stationName);
+                jsonArray.put(object);
+            }
+            item.put("item", jsonArray);
+            items.put("items", item);
+            resultCode.put("resultCode", "00");
+            response.put("header", resultCode);
+            response.put("body", items);
+            root.put("response", response);
+
+            Log.e("json create", root.toString());
+            return root.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //버스 남은시간 적은순대로 정렬을 위한 메서드

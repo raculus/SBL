@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -15,12 +16,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:gravity="center"
             android:id="@+id/editMin"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
+            android:gravity="center"
             android:inputType="number"
             android:minHeight="48dp"
             android:text="1" />
@@ -69,5 +70,15 @@
         android:text="@string/set_alarm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAlarmCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
