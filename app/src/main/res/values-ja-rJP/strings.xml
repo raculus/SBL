@@ -1,3 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">SBL</string>
+    <string name="title_alarm">アラーム</string>
+    <string name="title_edit">編集</string>
+    <string name="title_setting">設定</string>
+    <string name="set_alarm">アラーム設定</string>
+    <string name="add">追加</string>
+    <string name="remove">削除</string>
+    <string name="err_null_gps">位置情報の読み込みに失敗しました</string>
+    <string name="err_no_bus_stop">呼び出すバスがありません</string>
+    <string name="err_no_bus_nearby">呼び出すバスがありません</string>
+    <string name="err_api_server">APIサーバーエラー</string>
+    <string name="diag_grant_gps_title">位置権がなぜ必要なのですか？</string>
+    <string name="diag_grant_gps_msg">周辺の停留所検索に必要</string>
+    <string name="ok">確認</string>
+    <string name="minutes">分</string>
+    <string name="set">設定</string>
+    <string name="second">秒</string>
+    <string name="cancel">キャンセル</string>
+    <string name="alarm_title">アラームタイトル</string>
+    <string name="alarm_description">アラーム説明</string>
+    <string name="save">保存</string>
 </resources>

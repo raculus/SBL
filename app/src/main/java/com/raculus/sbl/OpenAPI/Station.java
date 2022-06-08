@@ -137,8 +137,6 @@ public class Station implements Comparable<Station>, Serializable {
             response.put("header", resultCode);
             response.put("body", items);
             root.put("response", response);
-
-            Log.e("json create", root.toString());
             return root.toString();
         } catch (JSONException e) {
             e.printStackTrace();

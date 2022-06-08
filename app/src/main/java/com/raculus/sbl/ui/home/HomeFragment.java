@@ -50,7 +50,6 @@ public class HomeFragment extends Fragment{
     }
     private void restoreList(){
          String strJson = getSettingItem("strJson");
-         Log.e("strJson", strJson);
          if(strJson == null){
              return;
          }
@@ -147,9 +146,14 @@ public class HomeFragment extends Fragment{
                     }
                     list.add(station);
                 }
-                stationArrayList = list;
+                if(list.size() > 0){
+                    stationArrayList = list;
+                    Message msg = handler.obtainMessage();
+                    handler.sendMessage(msg);
+                }
             }
         };
+        timer.schedule(timerTask, 0, 60);
         /* 갱신
             // 60초마다 갱신
             Timer timer = new Timer();
