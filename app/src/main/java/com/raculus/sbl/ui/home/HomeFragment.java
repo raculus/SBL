@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment{
                     dlg.setItems(itemArr, (dialog, index) -> {
                         if(index == 0){
                             Intent intent = new Intent(getActivity(), SetAlarm_Activity.class);
-                            intent.putExtra("arriveMinutes", s.getArriveMinutes());
+                            intent.putExtra("station", s);
                             startActivity(intent);
                         }
                         else if(index == 1){
@@ -117,8 +117,6 @@ public class HomeFragment extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        testValueAdd();
         restoreList();
 
         HomeViewModel homeViewModel =
@@ -153,7 +151,7 @@ public class HomeFragment extends Fragment{
                 }
             }
         };
-        timer.schedule(timerTask, 0, 60);
+        timer.schedule(timerTask, 0, 60000);
         /* 갱신
             // 60초마다 갱신
             Timer timer = new Timer();
@@ -215,34 +213,4 @@ public class HomeFragment extends Fragment{
           updateItem();
       }
     };
-
-    //TODO: it is debug code
-    private void testValueAdd(){
-        Station station = new Station();
-        station.routeNum = "151";
-        station.arriveSecond = 256;
-        station.stationName = "정류장명";
-        station.nodeId = "정류장id";
-        station.routeId ="버스id";
-        station.routeType = "노선 타입";
-
-        Station station1 = new Station();
-        station1.routeNum = "800";
-        station1.arriveSecond = 528;
-        station1.stationName = "정류장명22";
-        station1.nodeId = "정류장id22";
-        station1.routeId ="버스id22";
-        station1.routeType = "노선 타입22";
-
-        stationArrayList = new ArrayList<>();
-        stationArrayList.add(station);
-        stationArrayList.add(station1);
-    }
-
-    public void test(String test_val) {
-        Log.d("test",test_val);
-        for(Station station : stationArrayList){
-            Log.d("", station.getRouteNum());
-        }
-    }
 }

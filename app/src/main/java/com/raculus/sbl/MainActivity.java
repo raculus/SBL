@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        HomeFragment homeFragment = new HomeFragment();
-        homeFragment.test("test val");
-
         finish();
         return;
     }

@@ -58,12 +58,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/set"
-            android:textColor="#6D4C41" />
+            android:textColor="#6D4C41"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
     <TextView
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,9 +77,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:textColor="#6D4C41"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.078" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

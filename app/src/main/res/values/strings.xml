@@ -20,4 +20,6 @@
     <string name="alarm_title">alarm title</string>
     <string name="alarm_description">alarm description</string>
     <string name="save">Save</string>
+    <string name="alarm_cancel">Alarm is canceled</string>
+    <string name="alarm_set">Alarm is set</string>
 </resources>

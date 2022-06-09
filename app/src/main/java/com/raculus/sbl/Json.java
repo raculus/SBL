@@ -20,17 +20,13 @@ public class Json {
             }
             JSONObject body = new JSONObject(response.getString("body"));
             JSONObject items = new JSONObject(body.getString("items"));
-            try{
-                jsonArray = items.getJSONArray("item");
-            }
-            catch (Exception e){
+
+            jsonArray = items.getJSONArray("item");
+            if(jsonArray == null)
                 jsonArray.put(items.getJSONObject("item"));
-            }
 
             if(jsonArray.length() < 0)
-            {
                 return jsonArray;
-            }
 
             return jsonArray;
         } catch (JSONException e) {

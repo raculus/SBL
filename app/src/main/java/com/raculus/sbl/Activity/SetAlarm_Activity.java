@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.raculus.sbl.AlarmReceiver;
+import com.raculus.sbl.OpenAPI.Station;
 import com.raculus.sbl.R;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +28,8 @@ public class SetAlarm_Activity extends AppCompatActivity {
 
     private Button btnSet, btnCancel;
     private EditText editMin, editSec;
+    AlarmManager alarmManager;
+    PendingIntent alarmIntent;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -34,9 +37,22 @@ public class SetAlarm_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_alarm);
         btnSet = (Button)findViewById(R.id.btnSetAlarm);
+        btnCancel = findViewById(R.id.btnAlarmCancel);
         editMin = findViewById(R.id.editMin);
         editSec = findViewById(R.id.editSec);
 
+        Intent getIntent = getIntent();
+        Station station = (Station) getIntent.getSerializableExtra("station");
+        String busNum = station.getRouteNum();
+        int arrival = station.getArriveSecond();
+
+        btnCancel.setOnClickListener(view -> {
+            if(alarmManager != null){
+                alarmManager.cancel(alarmIntent);
+                Toast.makeText(this, getString(R.string.alarm_cancel), Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
 
         btnSet.setOnClickListener(v->{
             String strEditMin = String.valueOf(editMin.getText());
@@ -69,18 +85,18 @@ public class SetAlarm_Activity extends AppCompatActivity {
                 calendar.add(Calendar.DATE, 1);
             }
 
-            AlarmManager alarmManager=(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+            alarmManager=(AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 Intent intent = new Intent(this, AlarmReceiver.class);
-                PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 1, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                alarmIntent = PendingIntent.getBroadcast(this, 1, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                 //TODO: FLAG_UPDATE_CURRENT에서는 알림이 정상작동
                 //      하지만 IMMUTABLE에서는 작동x
                 //      (안드로이드30버전+ 에서는 IMMUTABLE, MUTTABLE만 사용 가능)
 
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                         AlarmManager.INTERVAL_DAY, alarmIntent);
-
-                Toast.makeText(this,"알람이 저장되었습니다.",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.alarm_set), Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }

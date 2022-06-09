@@ -21,4 +21,6 @@
     <string name="alarm_title">アラームタイトル</string>
     <string name="alarm_description">アラーム説明</string>
     <string name="save">保存</string>
+    <string name="alarm_cancel">Alarm is canceled</string>
+    <string name="alarm_set">Alarm is set</string>
 </resources>

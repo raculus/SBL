@@ -46,15 +46,4 @@ class MyLocationListner implements LocationListener {
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
     }
-
-
-    /**
-     * Calculate distance between two points in latitude and longitude taking
-     * into account height difference. If you are not interested in height
-     * difference pass 0.0. Uses Haversine method as its base.
-     *
-     * lat1, lon1 Start point lat2, lon2 End point el1 Start altitude in meters
-     * el2 End altitude in meters
-     * @returns Distance in Meters
-     */
 }
